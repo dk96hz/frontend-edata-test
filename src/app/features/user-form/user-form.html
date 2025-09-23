@@ -12,8 +12,20 @@
       }
     </select>
   </div>
-  <button>Add</button>
-  @if (showErrorMessage) {
+  <button [disabled]="loading">
+    @if (loading) {
+      Adding
+      <app-loading-spinner/>
+    } @else {
+      Add
+    }
+  </button>
+  @if (showFormErrorMessage) {
     <small class="error-message">Please correct the errors</small>
+  }
+  @if (showErrorMessage) {
+    <small class="error-message">
+      {{ errorMessage }}
+    </small>
   }
 </form>

@@ -9,6 +9,7 @@
       border: 1px solid var(--edata-color);
       text-align: left;
       padding: 8px;
+      max-width: 300px;
     }
 
     tr:nth-child(even) {

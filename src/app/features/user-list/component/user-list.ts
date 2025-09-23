@@ -5,12 +5,14 @@ import {faSort, faSortDown, faSortUp} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../user-service';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../../core/auth-service';
+import {LoadingSpinner} from '../../loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-user-list',
   imports: [
     FaIconComponent,
-    RouterLink
+    RouterLink,
+    LoadingSpinner
   ],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css'
@@ -19,7 +21,7 @@ export class UserList implements OnInit {
   private readonly userService = inject(UserService);
   private readonly authService = inject(AuthService);
 
-  protected readonly comparators: { [key: string]: (a: User, b: User) => number } = {
+  private readonly comparators: { [key: string]: (a: User, b: User) => number } = {
     'name': (a: User, b: User) => a.name.localeCompare(b.name),
     'id': (a: User, b: User) => a.id - b.id
   };
@@ -27,10 +29,10 @@ export class UserList implements OnInit {
   private currentSortField!: 'name' | 'id';
   private currentSortDirection = 1;
 
-  protected users: User[] = [];
+  protected users!: User[];
 
   ngOnInit() {
-    this.users = this.userService.getUsers();
+    this.userService.getUsers().subscribe(users => this.users = users);
   }
 
   protected sortByField(field: 'name' | 'id') {

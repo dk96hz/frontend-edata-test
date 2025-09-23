@@ -15,16 +15,24 @@
     </tr>
     </thead>
     <tbody>
-      @for (user of users; track user.id) {
+      @if (users) {
+        @for (user of users; track user.id) {
+          <tr>
+            <td>
+              {{ user.id }}
+            </td>
+            <td>
+              {{ user.name }}
+            </td>
+            <td>
+              {{ user.roles }}
+            </td>
+          </tr>
+        }
+      } @else {
         <tr>
-          <td>
-            {{ user.id }}
-          </td>
-          <td>
-            {{ user.name }}
-          </td>
-          <td>
-            {{ user.roles }}
+          <td colspan="3" style="text-align: center">
+            <app-loading-spinner/>
           </td>
         </tr>
       }

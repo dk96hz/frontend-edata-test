@@ -2,5 +2,13 @@
 <form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
   <input placeholder="Username" formControlName="username">
   <input placeholder="Password" type="password" formControlName="password">
-  <button>Log In</button>
+  <button [disabled]="loading">
+    Log In
+    @if (loading) {
+      <app-loading-spinner/>
+    }
+  </button>
+  @if (showErrorMessage) {
+    <small class="error-message">Incorrect username or password</small>
+  }
 </form>

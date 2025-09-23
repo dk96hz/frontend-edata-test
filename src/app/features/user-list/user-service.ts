@@ -1,51 +1,20 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {User} from './user.model';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private readonly userList: User[] = [{
-    id: 1,
-    name: "Felipe",
-    roles: [
-      "standard",
-      "admin"
-    ]
-  }, {
-    id: 2,
-    name: "Roberto",
-    roles: [
-      "standard"
-    ]
-  }, {
-    id: 3,
-    name: "Maria",
-    roles: [
-      "standard"
-    ]
-  }, {
-    id: 4,
-    name: "Rebeca",
-    roles: [
-      "admin"
-    ]
-  }];
+
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:8080/users';
 
   public addUser(user: User) {
-    this.simulateBackend(user);
-    this.userList.push(user);
+    return this.http.post<User>(this.apiUrl, user);
   }
 
-  private simulateBackend(user: User) {
-    if (user.roles.length < 1) {
-      user.roles = ["standard"];
-    }
-    user.id = this.userList.reduce((maxId: number, user: User) => Math.max(maxId, user.id), 0) + 1;
-
-  }
-
-  public getUsers(): User[] {
-    return this.userList;
+  public getUsers() {
+    return this.http.get<User[]>(this.apiUrl);
   }
 }
