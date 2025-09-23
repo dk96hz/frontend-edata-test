@@ -1,0 +1,27 @@
+.user-list-container {
+  display: grid;
+  place-items: center;
+
+  .user-list-table {
+    border-collapse: collapse;
+
+    td, th {
+      border: 1px solid var(--edata-color);
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--edata-color-secondary);
+    }
+
+    fa-icon {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+}

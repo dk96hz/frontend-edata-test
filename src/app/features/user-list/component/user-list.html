@@ -1,0 +1,36 @@
+<h1>User List</h1>
+<div class="user-list-container">
+  <table class="user-list-table">
+    <thead>
+    <tr>
+      <th>
+        Id
+        <fa-icon [icon]="getSortIcon('id')" (click)="sortByField('id')"/>
+      </th>
+      <th>
+        Username
+        <fa-icon [icon]="getSortIcon('name')" (click)="sortByField('name')"/>
+      </th>
+      <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track user.id) {
+        <tr>
+          <td>
+            {{ user.id }}
+          </td>
+          <td>
+            {{ user.name }}
+          </td>
+          <td>
+            {{ user.roles }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  @if (userIsAdmin) {
+    <button routerLink="/user-form">Add User</button>
+  }
+</div>

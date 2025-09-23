@@ -1,12 +1,15 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {AuthService} from './core/auth-service';
+import {Header} from './features/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('frontend');
+  private readonly authService = inject(AuthService);
+  protected readonly userIsLoggedIn = this.authService.userIsLoggedIn;
 }

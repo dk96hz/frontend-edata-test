@@ -1,0 +1,19 @@
+<h1>Add User</h1>
+<form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="input-container">
+    <label for="username" class="required">Username</label>
+    <input id="username" formControlName="name">
+  </div>
+  <div class="select-container">
+    <label for="roles">Roles</label>
+    <select id="roles" [multiple]="true" formControlName="roles">
+      @for (role of roles; track role) {
+        <option [value]="role">{{ role | titlecase }}</option>
+      }
+    </select>
+  </div>
+  <button>Add</button>
+  @if (showErrorMessage) {
+    <small class="error-message">Please correct the errors</small>
+  }
+</form>
